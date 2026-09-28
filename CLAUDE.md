@@ -18,7 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Stan repozytorium
 
-To jest świeży projekt `create-expo-app` (Expo SDK 56, Expo Router, TypeScript) — poza `app.json`/`CLAUDE.md` cały kod w `src/` to domyślny szablon (tabs Home/Explore, `ThemedText`/`ThemedView`, `use-color-scheme`). Żadna z mechanik opisanych wyżej nie jest jeszcze zaimplementowana. Traktuj obecną strukturę jako punkt startowy do rozbudowy, nie jako gotową architekturę do naśladowania 1:1.
+Projekt startował jako `create-expo-app` (Expo SDK 56, Expo Router, TypeScript). UI (`src/app/`, tabs Home/Explore, `ThemedText`/`ThemedView`) to wciąż w dużej mierze domyślny szablon. Backend (Supabase, `src/lib/`, `src/types/database.ts`) jest już zainicjowany — patrz sekcja "Backend" niżej.
 
 ## Komendy
 
@@ -42,6 +42,17 @@ Uruchom `npx expo lint` i `npx tsc --noEmit` przed zgłoszeniem zadania jako uko
 - Platform-specific pliki używają suffixów `.web.tsx` (patrz `animated-icon.web.tsx`, `use-color-scheme.web.ts`) — Metro/webpack wybiera właściwy wariant automatycznie po platformie.
 - Motyw (`src/constants/theme.ts`) eksportuje `Colors` (light/dark), `Fonts`, `Spacing` jako tokeny — nowe komponenty mają czerpać stąd, nie hardkodować kolorów/odstępów.
 - `useColorScheme` (`src/hooks/use-color-scheme.ts`) to jedyne źródło prawdy o motywie; komponenty pobierają kolory przez `Colors[scheme]`, nigdy przez media queries bezpośrednio.
+
+## Backend (Supabase)
+
+- Schemat: `supabase/migrations/` — `profiles` (nick, cel oszczędnościowy), `deposits` (wpisy kaucji), widok `leaderboard`.
+- **Zapis wpisów kaucji idzie wyłącznie przez RPC `add_deposit`** (security definer, limit dzienny sztuk, ownership przez `auth.uid()`). Klient nie ma `insert`/`update`/`delete` na `deposits` — to celowe, ranking ma być odporny na oszukiwanie z klienta.
+- `profiles`: klient może zmienić tylko `nick`/`goal_grosze` (reszta kolumn ograniczona `grant update(...)`).
+- Paragony: bucket Storage `receipts` (prywatny), ścieżka pliku musi zaczynać się od `<uid>/`.
+- Typy DB: `src/types/database.ts` — regeneruj po każdej migracji: `npx supabase gen types typescript --local > src/types/database.ts` (obecnie ręczny stub, bo lokalny Supabase wymaga Dockera).
+- Klient: `src/lib/supabase.ts`, sesja trzymana w `expo-secure-store` (przez `src/lib/secure-storage.ts`, chunkowany pod limit rozmiaru klucza).
+- Czyste przeliczniki (kwota, objętość, tytuły) — `src/lib/deposits.ts`, sanity-check w `src/lib/deposits.check.ts` (`npx tsx src/lib/deposits.check.ts`).
+- Komendy: `npx supabase start` / `npx supabase db reset` (wymaga uruchomionego Dockera) / `npx supabase stop`.
 
 ## Proponowany stack pod docelową aplikację
 
