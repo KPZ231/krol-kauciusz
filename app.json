@@ -2,7 +2,7 @@
   "expo": {
     "name": "krol-kauciusz",
     "slug": "krol-kauciusz",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "krolkauciusz",
@@ -37,6 +37,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a737c4f9-10ee-4e1d-8c7b-cda5236dc710"
+      }
+    },
+    "owner": "kpz231"
   }
 }

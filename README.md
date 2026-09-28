@@ -1,56 +1,57 @@
-# Welcome to your Expo app 👋
+# 👑 Król Kauciusz
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikacja mobilna (Expo / React Native), która pomaga zliczać oddane butelki i puszki kaucyjne, motywuje do zbierania kaucji i pokazuje, jak dużo dzięki temu zyskuje środowisko i portfel użytkownika.
 
-## Get started
+## Co robi aplikacja
 
-1. Install dependencies
+- **Licznik butelek/puszek** — dodawanie ilości poprzez zdjęcie paragonu (OCR) lub ręczne wpisanie liczby, żeby danych nie dało się łatwo zafałszować.
+- **Świnka-skarbonka** — wizualne napełnianie się kwotą kaucji do celu ustawionego przez użytkownika.
+- **Wpływ na środowisko** — przelicznik ilości oddanych opakowań na zajmowaną objętość (m³), odniesiony do średniej powierzchni sklepu Biedronka oraz średniej wielkości puszki/butelki.
+- **Zarobek z kaucji** — suma pieniędzy odzyskanych dzięki zwrotom.
+- **Ranking** — tabela wyników, w której użytkownicy rywalizują ilością zebranych opakowań.
+- **Profil i tytuły** — progresja i tytuły przyznawane w zależności od ilości zebranych butelek/puszek.
+- **Sklep** — customizacja profilu, w tym customowe efekty dla nicków.
+- **Reklamy** — aplikacja jest monetyzowana reklamami.
+
+## Stack techniczny
+
+- [Expo](https://expo.dev) + [Expo Router](https://docs.expo.dev/router/introduction/) (routing oparty na plikach)
+- React Native + TypeScript
+- React Native Reanimated (animacje)
+
+Szczegółowe zasady pracy nad kodem (architektura, konwencje, bezpieczeństwo, animacje) opisane są w [`AGENTS.md`](./AGENTS.md) i [`CLAUDE.md`](./CLAUDE.md).
+
+## Uruchomienie projektu
+
+1. Zainstaluj zależności:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Uruchom serwer deweloperski:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. Z poziomu terminala wybierz, gdzie otworzyć aplikację:
+   - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+   - [emulator Androida](https://docs.expo.dev/workflow/android-studio-emulator/)
+   - [symulator iOS](https://docs.expo.dev/workflow/ios-simulator/)
+   - [Expo Go](https://expo.dev/go)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Przydatne komendy
 
 ```bash
-npm run reset-project
+npx expo start --android   # uruchom na Androidzie
+npx expo start --ios       # uruchom na iOS
+npx expo lint              # lint
+npx tsc --noEmit           # sprawdzenie typów
+npx expo-doctor            # diagnostyka zależności i konfiguracji
+npx expo install --fix     # naprawa niekompatybilnych wersji pakietów
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Licencja
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Projekt objęty jest licencją [MIT](./LICENSE).
